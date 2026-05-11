@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DashBeauty</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6C3BD4 0%, #8B5CF6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 32px;
+            padding: 48px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6C3BD4;
+            text-decoration: none;
+            margin-bottom: 24px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo i {
+            font-size: 48px;
+            color: #6C3BD4;
+            background: #F3F0FF;
+            padding: 16px;
+            border-radius: 20px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            color: #1F2937;
+            margin-top: 16px;
+        }
+
+        .role-badge {
+            text-align: center;
+            background: #F3F0FF;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 24px;
+            font-weight: 600;
+        }
+
+        .role-badge.client {
+            background: #F3F0FF;
+            color: #6C3BD4;
+        }
+
+        .role-badge.business {
+            background: #FFF8F0;
+            color: #F5A623;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i:first-child {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+
+        .input-icon input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .input-icon input:focus {
+            outline: none;
+            border-color: #6C3BD4;
+            box-shadow: 0 0 0 3px rgba(108, 59, 212, 0.1);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #9CA3AF;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .forgot-password {
+            color: #6C3BD4;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: #6C3BD4;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #5A2DB8;
+            transform: translateY(-2px);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #E5E7EB;
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .auth-footer a {
+            color: #6C3BD4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1F2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.success {
+            background: #10B981;
+        }
+
+        .toast.error {
+            background: #EF4444;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+
+            <div class="logo">
+                <i class="fas fa-spa"></i>
+                <h1>DashBeauty</h1>
+            </div>
+
+            <div id="role-badge" class="role-badge client">
+                <i class="fas fa-user-circle"></i> Acessando como Cliente
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" required placeholder="seu@email.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" required placeholder="********">
+                        <i class="fas fa-eye-slash toggle-password"></i>
+                    </div>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="remember-me"> Lembrar-me
+                    </label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Não tem uma conta? <a href="register.html" id="register-link">Cadastre-se</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let selectedType = urlParams.get('type') || 'client';
+        
+        const roleBadge = document.getElementById('role-badge');
+        const loginBtn = document.querySelector('.btn-primary');
+        
+        if (selectedType === 'business') {
+            roleBadge.className = 'role-badge business';
+            roleBadge.innerHTML = '<i class="fas fa-store"></i> Acessando como Empresa';
+            loginBtn.style.background = '#F5A623';
+        } else {
+            roleBadge.className = 'role-badge client';
+            roleBadge.innerHTML = '<i class="fas fa-user-circle"></i> Acessando como Cliente';
+            loginBtn.style.background = '#6C3BD4';
+        }
+        
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                }
+            });
+        });
+        
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                showToast('Preencha todos os campos', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://dashbeauty.test/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const userType = data.data.user_type;
+                    
+                    if ((selectedType === 'client' && userType !== 'client') ||
+                        (selectedType === 'business' && userType !== 'business')) {
+                        showToast(`Esta conta é de ${userType === 'client' ? 'cliente' : 'empresa'}`, 'error');
+                        return;
+                    }
+                    
+                    localStorage.setItem('auth_token', data.data.token);
+                    localStorage.setItem('user_id', data.data.user_id);
+                    localStorage.setItem('user_type', data.data.user_type);
+                    localStorage.setItem('user_name', data.data.name);
+                    
+                    showToast('Login realizado com sucesso!', 'success');
+                    
+                    setTimeout(() => {
+                        if (userType === 'business') {
+                            window.location.href = 'business-dashboard.html';
+                        } else {
+                            window.location.href = 'client-dashboard.html';
+                        }
+                    }, 1000);
+                } else {
+                    showToast(data.message || 'Email ou senha inválidos', 'error');
+                }
+            } catch (error) {
+                showToast('Erro de conexão com o servidor', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

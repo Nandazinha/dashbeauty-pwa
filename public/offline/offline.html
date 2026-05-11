@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Offline - DashBeauty</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6C3BD4, #8B5CF6);
+            color: white;
+            text-align: center;
+        }
+        .container { padding: 40px; }
+        i { font-size: 80px; margin-bottom: 20px; }
+        h1 { font-size: 28px; margin-bottom: 16px; }
+        p { margin-bottom: 24px; opacity: 0.9; }
+        button {
+            background: white;
+            color: #6C3BD4;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <i class="fas fa-wifi"></i>
+        <h1>Você está offline</h1>
+        <p>Parece que você perdeu a conexão com a internet.<br>Algumas funcionalidades podem estar limitadas.</p>
+        <button onclick="location.reload()">Tentar novamente</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+</body>
+</html>

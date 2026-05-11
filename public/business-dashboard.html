@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBeauty - Painel da Empresa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F9FAFB;
+            color: #1F2937;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 24px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: #6C3BD4;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            color: #6C3BD4;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #6B7280;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-link i {
+            font-size: 18px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #6C3BD4;
+            background: rgba(108, 59, 212, 0.05);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info span {
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: none;
+            border: none;
+            color: #EF4444;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Botões */
+        .btn-primary {
+            background: #6C3BD4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #5A2DB8;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary.small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        .btn-secondary {
+            background: #F5A623;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #E09512;
+        }
+
+        .btn-cancel {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-confirm {
+            background: #10B981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-edit, .btn-delete {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn-edit {
+            color: #3B82F6;
+        }
+
+        .btn-delete {
+            color: #EF4444;
+        }
+
+        /* Páginas */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .page-header h2 {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        .page-header p {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-card .stat-icon i {
+            font-size: 32px;
+            color: #6C3BD4;
+        }
+
+        .stat-card .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6C3BD4;
+        }
+
+        .stat-card .stat-label {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        /* Services */
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .service-info h4 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .service-info p {
+            color: #6B7280;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .service-details {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .service-details .price {
+            color: #6C3BD4;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Hours */
+        .schedule-form {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .hour-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hour-item .day {
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+        .time-inputs {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .time-inputs input[type="time"] {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        /* Appointments */
+        .appointments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .appointment-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .appointment-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-scheduled {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .status-confirmed {
+            background: #E0E7FF;
+            color: #6C3BD4;
+        }
+
+        .status-completed {
+            background: #D1FAE5;
+            color: #10B981;
+        }
+
+        .status-cancelled {
+            background: #FEE2E2;
+            color: #EF4444;
+        }
+
+        .status-select {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        /* Clients */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .client-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .client-avatar i {
+            font-size: 48px;
+            color: #6C3BD4;
+        }
+
+        .client-info h4 {
+            margin-bottom: 4px;
+        }
+
+        .client-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 8px;
+        }
+
+        /* Profile Form */
+        .profile-form {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6C3BD4;
+            box-shadow: 0 0 0 3px rgba(108, 59, 212, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-content .close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6B7280;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #F9FAFB;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #6C3BD4;
+            color: white;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #E5E7EB;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #6B7280;
+            margin-bottom: 24px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1F2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 1100;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.success {
+            background: #10B981;
+        }
+
+        .toast.error {
+            background: #EF4444;
+        }
+
+        /* API Status */
+        .api-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1F2937;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .api-status.connected {
+            background: #10B981;
+        }
+
+        .api-status.error {
+            background: #EF4444;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-menu {
+                justify-content: center;
+            }
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .clients-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='business-dashboard.html'">
+                <i class="fas fa-spa"></i>
+                <h1>DashBeauty</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" data-page="dashboard" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="#" data-page="services" class="nav-link"><i class="fas fa-cut"></i> Serviços</a>
+                <a href="#" data-page="schedule" class="nav-link"><i class="fas fa-clock"></i> Horários</a>
+                <a href="#" data-page="appointments" class="nav-link"><i class="fas fa-calendar-alt"></i> Agendamentos</a>
+                <a href="#" data-page="clients" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+                <a href="#" data-page="profile" class="nav-link"><i class="fas fa-user"></i> Perfil</a>
+            </nav>
+            <div class="user-info">
+                <span id="business-name"></span>
+                <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- DASHBOARD -->
+            <div id="page-dashboard" class="page active">
+                <div class="page-header">
+                    <div>
+                        <h2>Dashboard</h2>
+                        <p>Visão geral do seu negócio</p>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-cut"></i></div>
+                        <div>
+                            <div class="stat-value" id="total-services">0</div>
+                            <div class="stat-label">Serviços</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <div class="stat-value" id="total-appointments">0</div>
+                            <div class="stat-label">Agendamentos</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                        <div>
+                            <div class="stat-value" id="total-rating">0.0</div>
+                            <div class="stat-label">Avaliação</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div>
+                            <div class="stat-value" id="total-revenue">R$ 0</div>
+                            <div class="stat-label">Faturamento</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 16px;">Agendamentos Recentes</h3>
+                    <div id="recent-appointments" class="appointments-list"></div>
+                </div>
+            </div>
+
+            <!-- SERVIÇOS -->
+            <div id="page-services" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>Meus Serviços</h2>
+                        <p>Gerencie os serviços oferecidos</p>
+                    </div>
+                    <button class="btn-primary small" onclick="showAddServiceModal()"><i class="fas fa-plus"></i> Novo Serviço</button>
+                </div>
+                <div id="services-list" class="services-list"></div>
+            </div>
+
+            <!-- HORÁRIOS -->
+            <div id="page-schedule" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>Horário de Funcionamento</h2>
+                        <p>Configure os horários do seu estabelecimento</p>
+                    </div>
+                </div>
+                <div class="schedule-form">
+                    <div class="hours-list" id="hours-list"></div>
+                    <button class="btn-primary" onclick="saveHours()">Salvar Horários</button>
+                </div>
+            </div>
+
+            <!-- AGENDAMENTOS -->
+            <div id="page-appointments" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>Agendamentos</h2>
+                        <p>Gerencie os agendamentos dos clientes</p>
+                    </div>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="today">Hoje</button>
+                    <button class="filter-btn" data-filter="week">Esta semana</button>
+                </div>
+                <div id="business-appointments" class="appointments-list"></div>
+            </div>
+
+            <!-- CLIENTES -->
+            <div id="page-clients" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>Clientes</h2>
+                        <p>Gerencie seus clientes</p>
+                    </div>
+                </div>
+                <div id="clients-list" class="clients-grid"></div>
+            </div>
+
+            <!-- PERFIL -->
+            <div id="page-profile" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>Perfil da Empresa</h2>
+                        <p>Gerencie as informações do seu negócio</p>
+                    </div>
+                </div>
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label>Nome do estabelecimento</label>
+                        <input type="text" id="business-name-input" placeholder="Nome do seu salão">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea id="business-description" rows="4" placeholder="Descreva seu estabelecimento..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input type="text" id="business-address" placeholder="Endereço completo">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="tel" id="business-phone" placeholder="(11) 99999-9999">
+                    </div>
+                    <button class="btn-primary" onclick="saveBusinessProfile()">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE SERVIÇO -->
+    <div id="service-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeServiceModal()">&times;</span>
+            <h3 id="service-modal-title">Novo Serviço</h3>
+            <div class="form-group">
+                <label>Nome do serviço</label>
+                <input type="text" id="service-name" placeholder="Ex: Corte de Cabelo">
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea id="service-description" rows="3" placeholder="Descreva o serviço..."></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Preço (R$)</label>
+                    <input type="number" id="service-price" step="0.01" placeholder="0,00">
+                </div>
+                <div class="form-group">
+                    <label>Duração (minutos)</label>
+                    <input type="number" id="service-duration" placeholder="60">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="service-category">
+                    <option value="Cabelo">Cabelo</option>
+                    <option value="Unhas">Unhas</option>
+                    <option value="Maquiagem">Maquiagem</option>
+                    <option value="Sobrancelhas">Sobrancelhas</option>
+                    <option value="Massagem">Massagem</option>
+                    <option value="Depilação">Depilação</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeServiceModal()">Cancelar</button>
+                <button class="btn-confirm" onclick="saveService()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <div id="api-status" class="api-status">🔄 Verificando conexão...</div>
+
+    <script>
+        // ============================================
+        // TESTE DE CONEXÃO COM A API
+        // ============================================
+        async function testAPI() {
+            const statusDiv = document.getElementById('api-status');
+            statusDiv.innerHTML = '🔄 Conectando à API...';
+            statusDiv.className = 'api-status';
+            
+            try {
+                const response = await fetch('http://dashbeauty.test/api/test');
+                const data = await response.json();
+                console.log('API respondendo:', data);
+                
+                if (data.success) {
+                    statusDiv.innerHTML = '✅ API conectada com sucesso!';
+                    statusDiv.className = 'api-status connected';
+                    setTimeout(() => {
+                        statusDiv.style.opacity = '0';
+                        setTimeout(() => {
+                            statusDiv.style.display = 'none';
+                        }, 2000);
+                    }, 3000);
+                    return true;
+                } else {
+                    statusDiv.innerHTML = '❌ Erro na API: ' + (data.message || 'Erro desconhecido');
+                    statusDiv.className = 'api-status error';
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Não foi possível conectar à API:', error);
+                statusDiv.innerHTML = '❌ API offline! Verifique o servidor.';
+                statusDiv.className = 'api-status error';
+                return false;
+            }
+        }
+
+        // ============================================
+        // DADOS MOCKADOS
+        // ============================================
+        let businessData = {
+            name: localStorage.getItem('business_name') || 'Meu Salão',
+            description: 'Salão de beleza completo com profissionais qualificados',
+            address: 'Rua Exemplo, 123 - Centro',
+            phone: '(11) 99999-9999',
+            rating: 4.8
+        };
+
+        let businessServices = JSON.parse(localStorage.getItem('business_services') || '[]');
+        let businessAppointments = JSON.parse(localStorage.getItem('business_appointments') || '[]');
+        let businessHours = JSON.parse(localStorage.getItem('business_hours') || '[]');
+        let editingServiceId = null;
+        let currentFilter = 'all';
+
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Testar conexão com a API
+            const apiConnected = await testAPI();
+            
+            if (!apiConnected) {
+                showToast('⚠️ Modo offline - usando dados locais', 'warning');
+            }
+            
+            checkAuth();
+            loadBusinessInfo();
+            loadServices();
+            loadAppointments();
+            loadHours();
+            loadDashboardStats();
+            loadClients();
+            setupEventListeners();
+        });
+
+        function checkAuth() {
+            const token = localStorage.getItem('auth_token');
+            const userType = localStorage.getItem('user_type');
+            if (!token || userType !== 'business') {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function loadBusinessInfo() {
+            document.getElementById('business-name').textContent = businessData.name;
+            document.getElementById('business-name-input').value = businessData.name;
+            document.getElementById('business-description').value = businessData.description;
+            document.getElementById('business-address').value = businessData.address;
+            document.getElementById('business-phone').value = businessData.phone;
+        }
+
+        function loadDashboardStats() {
+            document.getElementById('total-services').textContent = businessServices.length;
+            document.getElementById('total-appointments').textContent = businessAppointments.length;
+            document.getElementById('total-rating').textContent = businessData.rating.toFixed(1);
+            
+            const totalRevenue = businessAppointments.reduce((sum, app) => sum + app.price, 0);
+            document.getElementById('total-revenue').textContent = `R$ ${totalRevenue.toFixed(2)}`;
+            
+            displayRecentAppointments();
+        }
+
+        function displayRecentAppointments() {
+            const container = document.getElementById('recent-appointments');
+            const recent = [...businessAppointments].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+            
+            if (recent.length === 0) {
+                container.innerHTML = '<div class="empty-state">Nenhum agendamento recente</div>';
+                return;
+            }
+            
+            container.innerHTML = recent.map(app => `
+                <div class="appointment-card">
+                    <div>
+                        <h4>${app.serviceName}</h4>
+                        <p><strong>Cliente:</strong> ${app.clientName}</p>
+                        <p><i class="fas fa-calendar"></i> ${formatDate(app.date)} às ${app.time}</p>
+                    </div>
+                    <span class="appointment-status status-${app.status}">${getStatusText(app.status)}</span>
+                </div>
+            `).join('');
+        }
+
+        function loadServices() {
+            const container = document.getElementById('services-list');
+            
+            if (businessServices.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-cut"></i>
+                        <h3>Nenhum serviço cadastrado</h3>
+                        <p>Clique em "Novo Serviço" para começar</p>
+                        <button class="btn-primary" onclick="showAddServiceModal()">Adicionar Serviço</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = businessServices.map(service => `
+                <div class="service-card">
+                    <div class="service-info">
+                        <h4>${service.name}</h4>
+                        <p>${service.description || ''}</p>
+                        <div class="service-details">
+                            <span class="price">R$ ${service.price.toFixed(2)}</span>
+                            <span class="duration"><i class="far fa-clock"></i> ${service.duration} min</span>
+                            <span class="category">${service.category}</span>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn-edit" onclick="editService(${service.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteService(${service.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showAddServiceModal() {
+            editingServiceId = null;
+            document.getElementById('service-modal-title').textContent = 'Novo Serviço';
+            document.getElementById('service-name').value = '';
+            document.getElementById('service-description').value = '';
+            document.getElementById('service-price').value = '';
+            document.getElementById('service-duration').value = '';
+            document.getElementById('service-category').value = 'Cabelo';
+            document.getElementById('service-modal').style.display = 'flex';
+        }
+
+        function editService(id) {
+            const service = businessServices.find(s => s.id === id);
+            if (service) {
+                editingServiceId = id;
+                document.getElementById('service-modal-title').textContent = 'Editar Serviço';
+                document.getElementById('service-name').value = service.name;
+                document.getElementById('service-description').value = service.description || '';
+                document.getElementById('service-price').value = service.price;
+                document.getElementById('service-duration').value = service.duration;
+                document.getElementById('service-category').value = service.category;
+                document.getElementById('service-modal').style.display = 'flex';
+            }
+        }
+
+        function saveService() {
+            const name = document.getElementById('service-name').value;
+            const description = document.getElementById('service-description').value;
+            const price = parseFloat(document.getElementById('service-price').value);
+            const duration = parseInt(document.getElementById('service-duration').value);
+            const category = document.getElementById('service-category').value;
+            
+            if (!name || !price || !duration) {
+                showToast('Preencha todos os campos obrigatórios', 'error');
+                return;
+            }
+            
+            if (editingServiceId) {
+                const index = businessServices.findIndex(s => s.id === editingServiceId);
+                if (index !== -1) {
+                    businessServices[index] = { ...businessServices[index], name, description, price, duration, category };
+                }
+                showToast('Serviço atualizado com sucesso!', 'success');
+            } else {
+                const newService = { id: Date.now(), name, description, price, duration, category };
+                businessServices.push(newService);
+                showToast('Serviço criado com sucesso!', 'success');
+            }
+            
+            localStorage.setItem('business_services', JSON.stringify(businessServices));
+            closeServiceModal();
+            loadServices();
+            loadDashboardStats();
+        }
+
+        function deleteService(id) {
+            if (confirm('Tem certeza que deseja excluir este serviço?')) {
+                businessServices = businessServices.filter(s => s.id !== id);
+                localStorage.setItem('business_services', JSON.stringify(businessServices));
+                loadServices();
+                loadDashboardStats();
+                showToast('Serviço excluído com sucesso', 'success');
+            }
+        }
+
+        function loadHours() {
+            const container = document.getElementById('hours-list');
+            const days = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+            
+            if (businessHours.length === 0) {
+                for (let i = 0; i < 7; i++) {
+                    businessHours.push({
+                        day: i,
+                        open: i === 6 ? '' : '09:00',
+                        close: i === 6 ? '' : '18:00',
+                        closed: i === 6
+                    });
+                }
+            }
+            
+            container.innerHTML = businessHours.map((hour, index) => `
+                <div class="hour-item">
+                    <div class="day">${days[index]}</div>
+                    <div class="time-inputs">
+                        <input type="time" class="open-time" value="${hour.open}" ${hour.closed ? 'disabled' : ''}>
+                        <span>às</span>
+                        <input type="time" class="close-time" value="${hour.close}" ${hour.closed ? 'disabled' : ''}>
+                        <label class="checkbox">
+                            <input type="checkbox" class="closed-checkbox" ${hour.closed ? 'checked' : ''}> Fechado
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.closed-checkbox').forEach((cb, index) => {
+                cb.addEventListener('change', (e) => {
+                    const hourItem = e.target.closest('.hour-item');
+                    const openInput = hourItem.querySelector('.open-time');
+                    const closeInput = hourItem.querySelector('.close-time');
+                    openInput.disabled = e.target.checked;
+                    closeInput.disabled = e.target.checked;
+                });
+            });
+        }
+
+        function saveHours() {
+            const newHours = [];
+            document.querySelectorAll('.hour-item').forEach((item, index) => {
+                const openInput = item.querySelector('.open-time');
+                const closeInput = item.querySelector('.close-time');
+                const closedCheckbox = item.querySelector('.closed-checkbox');
+                
+                newHours.push({
+                    day: index,
+                    open: closedCheckbox.checked ? '' : openInput.value,
+                    close: closedCheckbox.checked ? '' : closeInput.value,
+                    closed: closedCheckbox.checked
+                });
+            });
+            
+            businessHours = newHours;
+            localStorage.setItem('business_hours', JSON.stringify(businessHours));
+            showToast('Horários salvos com sucesso!', 'success');
+        }
+
+        function loadAppointments() {
+            const container = document.getElementById('business-appointments');
+            let filtered = [...businessAppointments];
+            const today = new Date().toISOString().split('T')[0];
+            const weekStart = new Date();
+            weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+            const weekStartStr = weekStart.toISOString().split('T')[0];
+            
+            switch(currentFilter) {
+                case 'today':
+                    filtered = filtered.filter(a => a.date === today);
+                    break;
+                case 'week':
+                    filtered = filtered.filter(a => a.date >= weekStartStr);
+                    break;
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Nenhum agendamento</h3>
+                        <p>Você ainda não tem agendamentos</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filtered.map(app => `
+                <div class="appointment-card">
+                    <div>
+                        <h4>${app.serviceName}</h4>
+                        <p><strong>Cliente:</strong> ${app.clientName}</p>
+                        <p><strong>Contato:</strong> ${app.clientPhone || '(11) 99999-9999'}</p>
+                        <p><i class="fas fa-calendar"></i> ${formatDate(app.date)} às ${app.time}</p>
+                        <p><strong>Valor:</strong> R$ ${app.price.toFixed(2)}</p>
+                        ${app.notes ? `<p><strong>Obs:</strong> ${app.notes}</p>` : ''}
+                    </div>
+                    <div>
+                        <select class="status-select" data-id="${app.id}" onchange="updateAppointmentStatus(this)">
+                            <option value="scheduled" ${app.status === 'scheduled' ? 'selected' : ''}>Agendado</option>
+                            <option value="confirmed" ${app.status === 'confirmed' ? 'selected' : ''}>Confirmado</option>
+                            <option value="completed" ${app.status === 'completed' ? 'selected' : ''}>Concluído</option>
+                            <option value="cancelled" ${app.status === 'cancelled' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                        <button class="btn-cancel" style="margin-top: 8px;" onclick="cancelBusinessAppointment(${app.id})">Cancelar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateAppointmentStatus(select) {
+            const id = parseInt(select.dataset.id);
+            const newStatus = select.value;
+            const index = businessAppointments.findIndex(a => a.id === id);
+            if (index !== -1) {
+                businessAppointments[index].status = newStatus;
+                localStorage.setItem('business_appointments', JSON.stringify(businessAppointments));
+                showToast('Status atualizado com sucesso', 'success');
+                loadAppointments();
+                loadDashboardStats();
+            }
+        }
+
+        function cancelBusinessAppointment(id) {
+            if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
+                businessAppointments = businessAppointments.filter(a => a.id !== id);
+                localStorage.setItem('business_appointments', JSON.stringify(businessAppointments));
+                loadAppointments();
+                loadDashboardStats();
+                showToast('Agendamento cancelado com sucesso', 'success');
+            }
+        }
+
+        function loadClients() {
+            const clientMap = new Map();
+            businessAppointments.forEach(app => {
+                if (!clientMap.has(app.clientId)) {
+                    clientMap.set(app.clientId, {
+                        id: app.clientId,
+                        name: app.clientName,
+                        phone: app.clientPhone || '(11) 99999-9999',
+                        totalAppointments: 1,
+                        totalSpent: app.price
+                    });
+                } else {
+                    const client = clientMap.get(app.clientId);
+                    client.totalAppointments++;
+                    client.totalSpent += app.price;
+                }
+            });
+            const clients = Array.from(clientMap.values());
+            
+            const container = document.getElementById('clients-list');
+            
+            if (clients.length === 0) {
+                container.innerHTML = '<div class="empty-state">Nenhum cliente ainda</div>';
+                return;
+            }
+            
+            container.innerHTML = clients.map(client => `
+                <div class="client-card">
+                    <div class="client-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="client-info">
+                        <h4>${client.name}</h4>
+                        <p><i class="fas fa-phone"></i> ${client.phone}</p>
+                        <div class="client-stats">
+                            <span><i class="fas fa-calendar"></i> ${client.totalAppointments} agendamentos</span>
+                            <span><i class="fas fa-dollar-sign"></i> R$ ${client.totalSpent.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveBusinessProfile() {
+            businessData.name = document.getElementById('business-name-input').value;
+            businessData.description = document.getElementById('business-description').value;
+            businessData.address = document.getElementById('business-address').value;
+            businessData.phone = document.getElementById('business-phone').value;
+            
+            localStorage.setItem('business_name', businessData.name);
+            localStorage.setItem('user_name', businessData.name);
+            
+            loadBusinessInfo();
+            showToast('Perfil atualizado com sucesso!', 'success');
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('[data-page]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    navigateTo(page);
+                });
+            });
+            
+            document.querySelectorAll('#page-appointments .filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#page-appointments .filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    loadAppointments();
+                });
+            });
+        }
+
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${page}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === page) {
+                    link.classList.add('active');
+                }
+            });
+            
+            if (page === 'services') loadServices();
+            if (page === 'appointments') loadAppointments();
+            if (page === 'schedule') loadHours();
+            if (page === 'clients') loadClients();
+            if (page === 'dashboard') loadDashboardStats();
+        }
+
+        function closeServiceModal() {
+            document.getElementById('service-modal').style.display = 'none';
+            editingServiceId = null;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('pt-BR');
+        }
+
+        function getStatusText(status) {
+            const map = { 'scheduled': 'Agendado', 'confirmed': 'Confirmado', 'completed': 'Concluído', 'cancelled': 'Cancelado' };
+            return map[status] || status;
+        }
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
