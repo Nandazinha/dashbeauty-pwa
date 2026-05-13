@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $host = 'localhost';
 $dbname = 'dashbeauty';
 $username = 'root';
-$password = '260908';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
