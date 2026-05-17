@@ -30,7 +30,7 @@
 
     <main>
         <div class="container">
-            <!-- Página HOME -->
+            <!-- PÁGINA INÍCIO -->
             <div id="page-home" class="page active">
                 <div class="greeting">
                     <h2>Olá, <span id="welcome-name"></span>!</h2>
@@ -54,19 +54,19 @@
                 <div id="businesses-list" class="businesses-grid"></div>
             </div>
 
-            <!-- Página AGENDAMENTOS -->
+            <!-- PÁGINA AGENDAMENTOS -->
             <div id="page-appointments" class="page">
                 <div class="section-title">Meus Agendamentos</div>
                 <div id="appointments-list" class="appointments-list"></div>
             </div>
 
-            <!-- Página FAVORITOS -->
+            <!-- PÁGINA FAVORITOS -->
             <div id="page-favorites" class="page">
                 <div class="section-title">Meus Favoritos</div>
                 <div id="favorites-list" class="businesses-grid"></div>
             </div>
 
-            <!-- Página PERFIL -->
+            <!-- PÁGINA PERFIL -->
             <div id="page-profile" class="page">
                 <div class="section-title">Meu Perfil</div>
                 <div class="profile-card">
@@ -104,20 +104,20 @@
 
     <script>
         // ============================================
-        // DADOS MOCKADOS (100% FUNCIONAIS)
+        // DADOS MOCKADOS
         // ============================================
         
         const businesses = [
             { id: 1, name: 'Salão da Maria', address: 'Rua das Flores, 123 - SP', rating: 4.8, featured: true, category: 'Cabelo', 
               services: [
-                  { id: 1, name: 'Corte de Cabelo', price: 50, duration: 45, description: 'Corte moderno' },
-                  { id: 2, name: 'Coloração', price: 120, duration: 120, description: 'Coloração completa' },
-                  { id: 3, name: 'Hidratação', price: 80, duration: 60, description: 'Tratamento capilar' }
+                  { id: 1, name: 'Corte de Cabelo', price: 50, duration: 45, description: 'Corte moderno com design personalizado' },
+                  { id: 2, name: 'Coloração', price: 120, duration: 120, description: 'Coloração completa com produtos premium' },
+                  { id: 3, name: 'Hidratação', price: 80, duration: 60, description: 'Tratamento intensivo de hidratação' }
               ]},
             { id: 2, name: 'Studio de Beleza', address: 'Av. Paulista, 1000 - SP', rating: 4.5, featured: false, category: 'Unhas',
               services: [
-                  { id: 4, name: 'Manicure', price: 70, duration: 90, description: 'Alongamento de unhas' },
-                  { id: 5, name: 'Pedicure', price: 60, duration: 60, description: 'Pé completo' }
+                  { id: 4, name: 'Manicure', price: 70, duration: 90, description: 'Alongamento de unhas em gel' },
+                  { id: 5, name: 'Pedicure', price: 60, duration: 60, description: 'Pé completo com esmaltação' }
               ]},
             { id: 3, name: 'Espaço Estética', address: 'Rua Augusta, 500 - SP', rating: 4.9, featured: true, category: 'Massagem',
               services: [
@@ -176,7 +176,7 @@
         function displayBusinesses(list, containerId, showFavoriteBtn = false) {
             const container = document.getElementById(containerId);
             if (!list.length) {
-                container.innerHTML = '<div class="empty-state"><i class="fas fa-store-slash"></i><h3>Nenhum estabelecimento</h3><p>Tente buscar por outro termo</p></div>';
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-store-slash"></i><h3>Nenhum estabelecimento encontrado</h3><p>Tente buscar por outro termo</p></div>';
                 return;
             }
             
@@ -216,6 +216,7 @@
                 b.category.toLowerCase().includes(query.toLowerCase())
             );
             displayBusinesses(filtered, 'businesses-list');
+            document.getElementById('search-input').value = query;
         }
         
         function showBusinessDetail(id) {
@@ -337,7 +338,7 @@
             const sorted = [...appointments].sort((a, b) => new Date(b.date) - new Date(a.date));
             container.innerHTML = sorted.map(a => `
                 <div class="appointment-card">
-                    <div>
+                    <div class="appointment-info">
                         <h4>${a.serviceName}</h4>
                         <p><i class="fas fa-store"></i> ${a.businessName}</p>
                         <p><i class="fas fa-calendar"></i> ${formatDate(a.date)} às ${a.time}</p>
@@ -362,6 +363,11 @@
         
         function loadFavorites() {
             const favoriteBusinesses = businesses.filter(b => favorites.includes(b.id));
+            const container = document.getElementById('favorites-list');
+            if (!favoriteBusinesses.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-heart"></i><h3>Nenhum favorito</h3><button class="btn-primary" onclick="document.querySelector(\'[data-page="home"]\').click()">Explorar Salões</button></div>';
+                return;
+            }
             displayBusinesses(favoriteBusinesses, 'favorites-list', true);
         }
         
@@ -410,7 +416,7 @@
             loadAppointments();
             loadFavorites();
             
-            // Navegação
+            // Navegação entre abas
             document.querySelectorAll('.nav-link').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));

@@ -6,29 +6,806 @@
     <title>DashBeauty | Agendamento de Beleza</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6C3BD4, #8B5CF6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon i {
+            font-size: 20px;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo p {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 2px;
+        }
+
+        /* Navegação - CORRIGIDA */
+        .nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #F5A623;
+        }
+
+        /* Botões de autenticação */
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-login {
+            background: rgba(108,59,212,0.2);
+            border: 1px solid rgba(108,59,212,0.5);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-login:hover {
+            background: #6C3BD4;
+            border-color: #6C3BD4;
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, #6C3BD4, #8B5CF6);
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(108,59,212,0.4);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 0;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245,166,35,0.15);
+            color: #F5A623;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            border: 1px solid rgba(245,166,35,0.3);
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #FFFFFF, #D1B0FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            background: linear-gradient(135deg, #6C3BD4, #8B5CF6);
+            border: none;
+            padding: 14px 36px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108,59,212,0.4);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-hero-secondary:hover {
+            border-color: #6C3BD4;
+            background: rgba(108,59,212,0.1);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .hero-stats .stat-item h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-stats .stat-item p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-image-card {
+            background: linear-gradient(135deg, rgba(108,59,212,0.2), rgba(139,92,246,0.1));
+            border-radius: 32px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+        }
+
+        .hero-image-card i {
+            font-size: 80px;
+            color: #F5A623;
+            margin-bottom: 24px;
+        }
+
+        .hero-image-card h4 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .hero-image-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        /* ============================================
+           SEÇÃO COMO FUNCIONA
+           ============================================ */
+        .how-it-works {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 48px;
+            font-size: 18px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108,59,212,0.3);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #6C3BD4, #8B5CF6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .step-icon i {
+            font-size: 32px;
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        /* ============================================
+           CATEGORIAS
+           ============================================ */
+        .categories {
+            padding: 60px 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .category-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: #6C3BD4;
+        }
+
+        .category-card i {
+            font-size: 28px;
+            color: #F5A623;
+            margin-bottom: 12px;
+        }
+
+        .category-card span {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           DESTAQUES
+           ============================================ */
+        .featured {
+            padding: 60px 0;
+        }
+
+        .businesses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .business-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            border-color: #6C3BD4;
+        }
+
+        .business-image {
+            height: 140px;
+            background: linear-gradient(135deg, #6C3BD4, #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .business-image i {
+            font-size: 50px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #F5A623;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .business-info {
+            padding: 20px;
+        }
+
+        .business-info h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .stars {
+            color: #F5A623;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .business-address {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo i {
+            font-size: 28px;
+            color: #6C3BD4;
+        }
+
+        .footer-logo span {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links-column h4 {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links-column a {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links-column a:hover {
+            color: #F5A623;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+        }
+
+        /* ============================================
+           PARTÍCULAS
+           ============================================ */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: rgba(108,59,212,0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* ============================================
+           RESPONSIVIDADE
+           ============================================ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .auth-buttons {
+                justify-content: center;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .businesses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="particles"></div>
+
     <div class="container">
         <header class="header">
             <div class="container" style="padding: 16px 0;">
                 <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-spa"></i></div>
-                    <div class="logo-text"><h1>dashbeauty</h1><p>beauty scheduling</p></div>
+                    <div class="logo-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div>
+                        <h1>dashbeauty</h1>
+                        <p>beauty scheduling</p>
+                    </div>
                 </div>
-                <div class="nav"><a href="#">Início</a><a href="#">Serviços</a><a href="#">Sobre</a><a href="#">Contato</a></div>
-                <div class="auth-buttons"><button class="btn-login" onclick="window.location.href='login.html'">Entrar</button><button class="btn-register" onclick="window.location.href='register.html'">Cadastrar</button></div>
+                <div class="nav">
+                    <a href="#">Início</a>
+                    <a href="#">Serviços</a>
+                    <a href="#">Sobre</a>
+                    <a href="#">Contato</a>
+                </div>
+                <div class="auth-buttons">
+                    <button class="btn-login" onclick="window.location.href='login.html'">Entrar</button>
+                    <button class="btn-register" onclick="window.location.href='register.html'">Cadastrar</button>
+                </div>
             </div>
         </header>
+
         <section class="hero">
-            <div class="hero-content"><span class="hero-badge">✦ Plataforma Premium</span><h1>Agende seus <br>serviços de beleza</h1><p>Conecte-se com os melhores profissionais, agende horários e gerencie tudo em um só lugar.</p><div class="hero-buttons"><button class="btn-hero-primary" onclick="window.location.href='register.html'">Começar agora</button><button class="btn-hero-secondary">Ver demonstração</button></div><div class="hero-stats"><div class="stat-item"><h3>500+</h3><p>Profissionais</p></div><div class="stat-item"><h3>2k+</h3><p>Agendamentos</p></div><div class="stat-item"><h3>4.9★</h3><p>Avaliação média</p></div></div></div>
-            <div class="hero-image"><div class="hero-image-card"><i class="fas fa-calendar-check"></i><h4>Agendamento fácil</h4><p>Escolha o serviço, horário e confirme em segundos</p></div></div>
+            <div class="hero-content">
+                <span class="hero-badge">✦ Plataforma Premium</span>
+                <h1>Agende seus <br>serviços de beleza</h1>
+                <p>Conecte-se com os melhores profissionais, agende horários e gerencie tudo em um só lugar. Simples, rápido e seguro.</p>
+                <div class="hero-buttons">
+                    <button class="btn-hero-primary" onclick="window.location.href='register.html'">Começar agora</button>
+                    <button class="btn-hero-secondary">Ver demonstração</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p>Profissionais</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>2k+</h3>
+                        <p>Agendamentos</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>4.9★</h3>
+                        <p>Avaliação média</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Agendamento fácil</h4>
+                    <p>Escolha o serviço, horário e confirme em segundos</p>
+                </div>
+            </div>
         </section>
-        <footer class="footer"><div class="footer-content"><div class="footer-logo"><i class="fas fa-spa"></i><span>dashbeauty</span></div><div class="footer-links"><div class="footer-links-column"><h4>Plataforma</h4><a href="#">Início</a><a href="#">Serviços</a></div><div class="footer-links-column"><h4>Suporte</h4><a href="#">Central de ajuda</a><a href="#">Contato</a></div><div class="footer-links-column"><h4>Legal</h4><a href="#">Termos de uso</a><a href="#">Privacidade</a></div></div></div><div class="footer-bottom"><p>&copy; 2024 dashbeauty. Todos os direitos reservados.</p></div></footer>
+
+        <section class="how-it-works">
+            <h2 class="section-title">Como funciona?</h2>
+            <p class="section-subtitle">Três passos simples para agendar seu serviço</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <h3>1. Encontre</h3>
+                    <p>Busque por salões e profissionais perto de você</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>2. Agende</h3>
+                    <p>Escolha o serviço e o melhor horário</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-star"></i></div>
+                    <h3>3. Relaxe</h3>
+                    <p>Compareça e aproveite o serviço</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories">
+            <h2 class="section-title">Categorias</h2>
+            <p class="section-subtitle">Explore os serviços mais procurados</p>
+            <div class="categories-grid">
+                <div class="category-card"><i class="fas fa-cut"></i><span>Cabelo</span></div>
+                <div class="category-card"><i class="fas fa-hand-peace"></i><span>Unhas</span></div>
+                <div class="category-card"><i class="fas fa-brush"></i><span>Maquiagem</span></div>
+                <div class="category-card"><i class="fas fa-eye"></i><span>Sobrancelhas</span></div>
+                <div class="category-card"><i class="fas fa-spa"></i><span>Massagem</span></div>
+                <div class="category-card"><i class="fas fa-wind"></i><span>Depilação</span></div>
+            </div>
+        </section>
+
+        <section class="featured">
+            <h2 class="section-title">Salões em Destaque</h2>
+            <p class="section-subtitle">Os mais bem avaliados da plataforma</p>
+            <div class="businesses-grid" id="featured-businesses">
+                <!-- Carregado via JS -->
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-spa"></i>
+                    <span>dashbeauty</span>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Plataforma</h4>
+                        <a href="#">Início</a>
+                        <a href="#">Serviços</a>
+                        <a href="#">Preços</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Suporte</h4>
+                        <a href="#">Central de ajuda</a>
+                        <a href="#">FAQ</a>
+                        <a href="#">Contato</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Legal</h4>
+                        <a href="#">Termos de uso</a>
+                        <a href="#">Privacidade</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 dashbeauty. Todos os direitos reservados.</p>
+            </div>
+        </footer>
     </div>
+
     <script>
-        for (let i = 0; i < 50; i++) { const p = document.createElement('div'); p.classList.add('particle'); p.style.left = Math.random() * 100 + '%'; p.style.animationDelay = Math.random() * 15 + 's'; p.style.animationDuration = (Math.random() * 10 + 10) + 's'; p.style.width = (Math.random() * 4 + 2) + 'px'; p.style.height = p.style.width; document.getElementById('particles').appendChild(p); }
+        // Criar partículas flutuantes
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            document.getElementById('particles').appendChild(particle);
+        }
+
+        // Dados mockados para salões em destaque
+        const businesses = [
+            { id: 1, name: 'Salão da Maria', address: 'Rua das Flores, 123 - SP', rating: 4.8, featured: true },
+            { id: 2, name: 'Studio de Beleza', address: 'Av. Paulista, 1000 - SP', rating: 4.5, featured: true },
+            { id: 3, name: 'Espaço Estética', address: 'Rua Augusta, 500 - SP', rating: 4.9, featured: true }
+        ];
+
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 0; i < Math.floor(rating); i++) stars += '<i class="fas fa-star"></i>';
+            if (rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+            for (let i = stars.length / 2; i < 5; i++) stars += '<i class="far fa-star"></i>';
+            return stars;
+        }
+
+        function displayFeaturedBusinesses() {
+            const container = document.getElementById('featured-businesses');
+            const featured = businesses.filter(b => b.featured);
+            container.innerHTML = featured.map(b => `
+                <div class="business-card">
+                    <div class="business-image">
+                        <i class="fas fa-store"></i>
+                        <span class="featured-tag"><i class="fas fa-star"></i> Destaque</span>
+                    </div>
+                    <div class="business-info">
+                        <h4>${b.name}</h4>
+                        <div class="stars">${renderStars(b.rating)}</div>
+                        <div class="business-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${b.address}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        displayFeaturedBusinesses();
     </script>
 </body>
 </html>

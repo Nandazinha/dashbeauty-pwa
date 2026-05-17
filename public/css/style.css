@@ -1,5 +1,5 @@
 /* ============================================
-   DASHBEAUTY - CSS COMPLETO RESPONSIVO
+   DASHBEAUTY - CSS COMPLETO
    Cores: Roxo (#6C3BD4), Dourado (#F5A623), Preto (#0A0A0A)
    ============================================ */
 
@@ -149,6 +149,9 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .btn-primary:hover {
@@ -177,38 +180,6 @@ body {
     background: rgba(108,59,212,0.1);
 }
 
-.btn-login {
-    background: rgba(108,59,212,0.2);
-    border: 1px solid rgba(108,59,212,0.5);
-    color: white;
-    padding: 8px 24px;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.btn-login:hover {
-    background: var(--primary);
-    border-color: var(--primary);
-}
-
-.btn-register {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    border: none;
-    padding: 8px 24px;
-    border-radius: var(--radius-full);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.btn-register:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(108,59,212,0.4);
-}
-
 .btn-logout {
     background: rgba(239,68,68,0.1);
     border: 1px solid rgba(239,68,68,0.3);
@@ -232,6 +203,7 @@ body {
     border-radius: var(--radius-full);
     color: var(--error);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn-cancel:hover {
@@ -246,6 +218,12 @@ body {
     cursor: pointer;
     padding: 8px;
     font-size: 16px;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+    background: rgba(59,130,246,0.1);
 }
 
 .btn-delete {
@@ -255,6 +233,12 @@ body {
     cursor: pointer;
     padding: 8px;
     font-size: 16px;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+    background: rgba(239,68,68,0.1);
 }
 
 .btn-favorite {
@@ -264,10 +248,28 @@ body {
     font-size: 20px;
     color: rgba(255,255,255,0.3);
     transition: all 0.3s ease;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 .btn-favorite.active {
     color: var(--secondary);
+}
+
+.btn-book {
+    background: var(--primary);
+    border: none;
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-book:hover {
+    background: var(--primary-dark);
 }
 
 /* ============================================
@@ -460,6 +462,22 @@ body {
     font-weight: 600;
 }
 
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    color: var(--secondary);
+    gap: 12px;
+}
+
 /* ============================================
    GREETING
    ============================================ */
@@ -518,6 +536,11 @@ body {
     color: white;
     cursor: pointer;
     font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.search-box button:hover {
+    background: var(--primary-dark);
 }
 
 /* ============================================
@@ -531,6 +554,7 @@ body {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 24px;
+    color: white;
 }
 
 .categories-grid {
@@ -583,6 +607,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     border: 1px solid var(--border);
+    position: relative;
 }
 
 .business-card:hover {
@@ -623,6 +648,7 @@ body {
 .business-info h4 {
     font-size: 16px;
     margin-bottom: 8px;
+    color: white;
 }
 
 .business-rating {
@@ -690,18 +716,9 @@ body {
     font-size: 12px;
 }
 
-.btn-book {
-    background: var(--primary);
-    border: none;
-    padding: 8px 20px;
-    border-radius: var(--radius-full);
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.btn-book:hover {
-    background: var(--primary-dark);
+.service-actions {
+    display: flex;
+    gap: 8px;
 }
 
 /* ============================================
@@ -725,6 +742,17 @@ body {
     border: 1px solid var(--border);
 }
 
+.appointment-info h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.appointment-info p {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
 .appointment-status {
     padding: 4px 12px;
     border-radius: var(--radius-full);
@@ -733,6 +761,7 @@ body {
 }
 
 .status-scheduled { background: rgba(245,166,35,0.2); color: var(--secondary); }
+.status-confirmed { background: rgba(59,130,246,0.2); color: var(--info); }
 .status-completed { background: rgba(16,185,129,0.2); color: var(--success); }
 .status-cancelled { background: rgba(239,68,68,0.2); color: var(--error); }
 
@@ -750,6 +779,7 @@ body {
     z-index: 1000;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
@@ -768,6 +798,7 @@ body {
     font-size: 24px;
     cursor: pointer;
     color: var(--text-muted);
+    transition: color 0.3s ease;
 }
 
 .modal-content .close:hover {
@@ -801,6 +832,15 @@ body {
     color: var(--primary);
 }
 
+.profile-info h3 {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.profile-info p {
+    color: var(--text-muted);
+}
+
 .profile-stats {
     display: flex;
     gap: 32px;
@@ -818,6 +858,35 @@ body {
 }
 
 .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   STATS CARDS (EMPRESA)
+   ============================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.stat-card .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-card .stat-label {
     font-size: 12px;
     color: var(--text-muted);
 }
@@ -841,6 +910,7 @@ body {
 .empty-state h3 {
     font-size: 20px;
     margin-bottom: 8px;
+    color: white;
 }
 
 .empty-state p {
@@ -921,6 +991,38 @@ body {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border: none;
+    padding: 14px 36px;
+    border-radius: var(--radius-full);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(108,59,212,0.4);
+}
+
+.btn-hero-secondary {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 14px 36px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-hero-secondary:hover {
+    border-color: var(--primary);
+    background: rgba(108,59,212,0.1);
 }
 
 .hero-stats {
@@ -1065,4 +1167,4 @@ body {
     .categories-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-buttons { flex-direction: column; align-items: center; }
     .modal-content { padding: 24px; }
-};
+}
